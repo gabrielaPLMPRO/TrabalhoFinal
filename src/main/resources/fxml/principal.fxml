@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="br.ucs.dante.controller.PrincipalController"
+            prefWidth="1100"
+            prefHeight="700"
+            styleClass="root-container">
+
+    <left>
+        <VBox prefWidth="240" styleClass="sidebar" spacing="8">
+
+            <Label text="DANTE" styleClass="logo"/>
+            <Label text="SAUNA &amp; SQUASH" styleClass="logo-subtitle"/>
+
+            <Separator />
+
+            <Button text="Início" onAction="#abrirInicio" styleClass="menu-button"/>
+            <Button text="Clientes" onAction="#abrirClientes" styleClass="menu-button"/>
+            <Button text="Produtos" onAction="#abrirProdutos" styleClass="menu-button"/>
+            <Button text="Consumos" onAction="#abrirConsumos" styleClass="menu-button"/>
+            <Button text="Pagamentos" onAction="#abrirPagamentos" styleClass="menu-button"/>
+            <Button text="Reservas de Squash" onAction="#abrirReservas" styleClass="menu-button"/>
+            <Button text="Sauna" onAction="#abrirSauna" styleClass="menu-button"/>
+            <Button text="Mensalidades" onAction="#abrirMensalidades" styleClass="menu-button"/>
+            <Button text="Relatórios" onAction="#abrirRelatorios" styleClass="menu-button"/>
+            <Button text="Configurações" onAction="#abrirConfiguracoes" styleClass="menu-button"/>
+
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="24" styleClass="main-content">
+
+            <HBox styleClass="header">
+                <Label fx:id="tituloPagina"
+                       text="Visão Geral"
+                       styleClass="page-title"/>
+            </HBox>
+
+            <VBox fx:id="conteudoCentral"
+      spacing="12"
+      styleClass="content-card">
+                <Label fx:id="tituloConteudo"
+                       text="Bem-vindo ao Dante Sauna &amp; Squash!"
+                       styleClass="card-title"/>
+
+                <Label fx:id="descricaoConteudo"
+                       text="Selecione um módulo no menu lateral para começar."
+                       wrapText="true"
+                       styleClass="card-description"/>
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>

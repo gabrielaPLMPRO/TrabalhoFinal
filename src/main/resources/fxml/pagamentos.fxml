@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.ucs.dante.controller.PagamentoController"
+      spacing="16"
+      styleClass="clientes-container">
+
+    <Label text="Registro de Pagamentos"
+           styleClass="card-title"/>
+
+    <GridPane hgap="16" vgap="12">
+        <columnConstraints>
+            <ColumnConstraints minWidth="125"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Cliente: *"
+               GridPane.rowIndex="0"/>
+        <ComboBox fx:id="campoCliente"
+                  promptText="Selecione um cliente"
+                  maxWidth="Infinity"
+                  GridPane.rowIndex="0"
+                  GridPane.columnIndex="1"/>
+
+        <Label text="Data: *"
+               GridPane.rowIndex="1"/>
+        <DatePicker fx:id="campoData"
+                    maxWidth="Infinity"
+                    GridPane.rowIndex="1"
+                    GridPane.columnIndex="1"/>
+
+        <Label text="Sequência:"
+               GridPane.rowIndex="2"/>
+        <TextField fx:id="campoSequencia"
+                   promptText="Automática para novo pagamento"
+                   GridPane.rowIndex="2"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Valor (R$): *"
+               GridPane.rowIndex="3"/>
+        <TextField fx:id="campoValor"
+                   promptText="Ex.: 50,00"
+                   GridPane.rowIndex="3"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Pagamento:"
+               GridPane.rowIndex="4"/>
+        <CheckBox fx:id="campoPagamentoTotal"
+                  text="Pagamento total"
+                  GridPane.rowIndex="4"
+                  GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="10">
+        <Button text="Salvar"
+                onAction="#salvar"
+                styleClass="primary-button"/>
+
+        <Button text="Pesquisar"
+                onAction="#pesquisar"
+                styleClass="secondary-button"/>
+
+        <Button text="Excluir"
+                onAction="#excluir"
+                styleClass="danger-button"/>
+
+        <Button text="Limpar"
+                onAction="#limpar"
+                styleClass="secondary-button"/>
+    </HBox>
+
+    <Separator/>
+
+    <Label text="Pagamentos registrados"
+           styleClass="card-title"/>
+
+    <TableView fx:id="tabelaPagamentos"
+               prefHeight="270"
+               VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colunaCliente"
+                         text="Cliente"
+                         prefWidth="110"/>
+
+            <TableColumn fx:id="colunaData"
+                         text="Data"
+                         prefWidth="130"/>
+
+            <TableColumn fx:id="colunaSequencia"
+                         text="Seq."
+                         prefWidth="85"/>
+
+            <TableColumn fx:id="colunaValor"
+                         text="Valor (R$)"
+                         prefWidth="150"/>
+
+            <TableColumn fx:id="colunaPagamentoTotal"
+                         text="Pagamento total"
+                         prefWidth="150"/>
+        </columns>
+    </TableView>
+
+</VBox>

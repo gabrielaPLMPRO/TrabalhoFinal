@@ -1,0 +1,30 @@
+
+# Maven
+target/
+
+# Java
+*.class
+*.log
+
+# VS Code
+.vscode/
+.settings/
+.project
+.classpath
+
+# IntelliJ
+.idea/
+*.iml
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Credenciais e arquivos locais
+.env
+.env.*
+*.local
+erro-compilacao.txt
+
+# Backups
+*.bak

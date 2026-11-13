@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.ucs.dante.controller.ClienteController"
+      spacing="18"
+      styleClass="clientes-container">
+
+    <Label text="Cadastro de Clientes"
+           styleClass="card-title"/>
+
+    <GridPane hgap="16" vgap="12">
+
+        <columnConstraints>
+            <ColumnConstraints minWidth="125"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Código:" GridPane.rowIndex="0"/>
+        <TextField fx:id="campoCodigo"
+           promptText="Vazio para novo cadastro"
+           editable="true"
+           GridPane.rowIndex="0"
+           GridPane.columnIndex="1"/>
+
+        <Label text="Nome: *" GridPane.rowIndex="1"/>
+        <TextField fx:id="campoNome"
+                   promptText="Nome completo"
+                   GridPane.rowIndex="1"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="CPF:" GridPane.rowIndex="2"/>
+        <TextField fx:id="campoCpf"
+                   promptText="Somente números"
+                   GridPane.rowIndex="2"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Aniversário:" GridPane.rowIndex="3"/>
+        <DatePicker fx:id="campoAniversario"
+                    GridPane.rowIndex="3"
+                    GridPane.columnIndex="1"/>
+
+        <Label text="Telefone:" GridPane.rowIndex="4"/>
+        <TextField fx:id="campoTelefone"
+                   GridPane.rowIndex="4"
+                   GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="10">
+        <Button text="Salvar"
+                onAction="#salvar"
+                styleClass="primary-button"/>
+
+        <Button text="Pesquisar"
+                onAction="#pesquisar"
+                styleClass="secondary-button"/>
+
+        <Button text="Excluir"
+                onAction="#excluir"
+                styleClass="danger-button"/>
+
+        <Button text="Limpar"
+        onAction="#limpar"
+        styleClass="secondary-button"/>
+        
+    </HBox>
+
+    <Separator/>
+
+    <Label text="Clientes cadastrados"
+           styleClass="card-title"/>
+
+    <TableView fx:id="tabelaClientes"
+               prefHeight="260"
+               VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colunaCodigo"
+                         text="Código"
+                         prefWidth="80"/>
+            <TableColumn fx:id="colunaNome"
+                         text="Nome"
+                         prefWidth="230"/>
+            <TableColumn fx:id="colunaCpf"
+                         text="CPF"
+                         prefWidth="130"/>
+            <TableColumn fx:id="colunaTelefone"
+                         text="Telefone"
+                         prefWidth="140"/>
+        </columns>
+    </TableView>
+
+</VBox>

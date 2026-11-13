@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.ucs.dante.controller.ConsumoController"
+      spacing="16"
+      styleClass="clientes-container">
+
+    <Label text="Registro de Consumos"
+           styleClass="card-title"/>
+
+    <GridPane hgap="16" vgap="12">
+        <columnConstraints>
+            <ColumnConstraints minWidth="125"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Cliente: *"
+               GridPane.rowIndex="0"/>
+        <ComboBox fx:id="campoCliente"
+                  maxWidth="Infinity"
+                  promptText="Selecione um cliente"
+                  GridPane.rowIndex="0"
+                  GridPane.columnIndex="1"/>
+
+        <Label text="Data: *"
+               GridPane.rowIndex="1"/>
+        <DatePicker fx:id="campoData"
+                    maxWidth="Infinity"
+                    GridPane.rowIndex="1"
+                    GridPane.columnIndex="1"/>
+
+        <Label text="Sequência:"
+               GridPane.rowIndex="2"/>
+        <TextField fx:id="campoSequencia"
+                   promptText="Automática para novo consumo"
+                   GridPane.rowIndex="2"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Produto: *"
+               GridPane.rowIndex="3"/>
+        <ComboBox fx:id="campoProduto"
+                  maxWidth="Infinity"
+                  promptText="Selecione um produto"
+                  GridPane.rowIndex="3"
+                  GridPane.columnIndex="1"/>
+
+        <Label text="Quantidade: *"
+               GridPane.rowIndex="4"/>
+        <TextField fx:id="campoQuantidade"
+                   promptText="Ex.: 2"
+                   GridPane.rowIndex="4"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Valor (R$): *"
+               GridPane.rowIndex="5"/>
+        <TextField fx:id="campoValor"
+                   promptText="Ex.: 20,00"
+                   GridPane.rowIndex="5"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Pagamento:"
+               GridPane.rowIndex="6"/>
+        <CheckBox fx:id="campoPago"
+                  text="Consumo pago"
+                  GridPane.rowIndex="6"
+                  GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="10">
+        <Button text="Salvar"
+                onAction="#salvar"
+                styleClass="primary-button"/>
+        <Button text="Pesquisar"
+                onAction="#pesquisar"
+                styleClass="secondary-button"/>
+        <Button text="Excluir"
+                onAction="#excluir"
+                styleClass="danger-button"/>
+        <Button text="Limpar"
+                onAction="#limpar"
+                styleClass="secondary-button"/>
+    </HBox>
+
+    <Separator/>
+
+    <Label text="Consumos registrados"
+           styleClass="card-title"/>
+
+    <TableView fx:id="tabelaConsumos"
+               prefHeight="270"
+               VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colunaCliente"
+                         text="Cliente"
+                         prefWidth="90"/>
+            <TableColumn fx:id="colunaData"
+                         text="Data"
+                         prefWidth="110"/>
+            <TableColumn fx:id="colunaSequencia"
+                         text="Seq."
+                         prefWidth="65"/>
+            <TableColumn fx:id="colunaProduto"
+                         text="Produto"
+                         prefWidth="90"/>
+            <TableColumn fx:id="colunaQuantidade"
+                         text="Qtd."
+                         prefWidth="65"/>
+            <TableColumn fx:id="colunaValor"
+                         text="Valor (R$)"
+                         prefWidth="110"/>
+            <TableColumn fx:id="colunaPago"
+                         text="Pago"
+                         prefWidth="75"/>
+        </columns>
+    </TableView>
+</VBox>

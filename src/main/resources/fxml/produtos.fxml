@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="br.ucs.dante.controller.ProdutoController"
+      spacing="18"
+      styleClass="clientes-container">
+
+    <Label text="Cadastro de Produtos"
+           styleClass="card-title"/>
+
+    <GridPane hgap="16" vgap="12">
+
+        <columnConstraints>
+            <ColumnConstraints minWidth="125"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Código:" GridPane.rowIndex="0"/>
+        <TextField fx:id="campoCodigo"
+                   promptText="Vazio para gerar automaticamente"
+                   GridPane.rowIndex="0"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Descrição: *" GridPane.rowIndex="1"/>
+        <TextField fx:id="campoDescricao"
+                   promptText="Descrição do produto"
+                   GridPane.rowIndex="1"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Preço: *" GridPane.rowIndex="2"/>
+        <TextField fx:id="campoPreco"
+                   promptText="Ex.: 12,50"
+                   GridPane.rowIndex="2"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Unidade: *" GridPane.rowIndex="3"/>
+        <TextField fx:id="campoUnidade"
+                   promptText="Ex.: UN"
+                   GridPane.rowIndex="3"
+                   GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="10">
+        <Button text="Salvar"
+                onAction="#salvar"
+                styleClass="primary-button"/>
+
+        <Button text="Pesquisar"
+                onAction="#pesquisar"
+                styleClass="secondary-button"/>
+
+        <Button text="Excluir"
+                onAction="#excluir"
+                styleClass="danger-button"/>
+
+        <Button text="Limpar"
+                onAction="#limpar"
+                styleClass="secondary-button"/>
+    </HBox>
+
+    <Separator/>
+
+    <Label text="Produtos cadastrados"
+           styleClass="card-title"/>
+
+    <TableView fx:id="tabelaProdutos"
+               prefHeight="260"
+               VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colunaCodigo"
+                         text="Código"
+                         prefWidth="90"/>
+
+            <TableColumn fx:id="colunaDescricao"
+                         text="Descrição"
+                         prefWidth="250"/>
+
+            <TableColumn fx:id="colunaPreco"
+                         text="Preço (R$)"
+                         prefWidth="130"/>
+
+            <TableColumn fx:id="colunaUnidade"
+                         text="Unidade"
+                         prefWidth="130"/>
+        </columns>
+    </TableView>
+
+</VBox>

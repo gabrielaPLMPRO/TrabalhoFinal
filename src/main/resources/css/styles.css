@@ -1,0 +1,135 @@
+
+.root-container {
+    -fx-background-color: #f4f6fa;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.sidebar {
+    -fx-background-color: #14243a;
+    -fx-padding: 28 16 20 16;
+    -fx-fill-width: true;
+}
+
+.logo {
+    -fx-text-fill: white;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.logo-subtitle {
+    -fx-text-fill: #93a8c3;
+    -fx-font-size: 12px;
+    -fx-padding: 0 0 20 0;
+}
+
+.sidebar .separator {
+    -fx-padding: 0 0 18 0;
+}
+
+.menu-button {
+    -fx-max-width: infinity;
+    -fx-alignment: CENTER_LEFT;
+    -fx-background-color: transparent;
+    -fx-text-fill: #c9d5e5;
+    -fx-font-size: 14px;
+    -fx-padding: 13 16;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.menu-button:hover {
+    -fx-background-color: #273d58;
+    -fx-text-fill: white;
+}
+
+.menu-button:focused {
+    -fx-border-color: #4e89ce;
+    -fx-border-radius: 8;
+}
+
+.main-content {
+    -fx-padding: 32;
+}
+
+.header {
+    -fx-alignment: CENTER_LEFT;
+}
+
+.page-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #17283d;
+}
+
+.content-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 28;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 12;
+}
+
+.card-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #17283d;
+}
+
+.card-description {
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748b;
+}
+    
+
+/* Cadastro de clientes */
+
+.clientes-container {
+    -fx-padding: 8;
+}
+
+.clientes-container .text-field,
+.clientes-container .date-picker {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #cbd5e1;
+}
+
+.clientes-container .text-field:focused {
+    -fx-border-color: #2563eb;
+}
+
+.primary-button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+    -fx-padding: 10 18;
+    -fx-background-radius: 7;
+    -fx-cursor: hand;
+}
+
+.secondary-button {
+    -fx-background-color: #e2e8f0;
+    -fx-text-fill: #334155;
+    -fx-padding: 10 18;
+    -fx-background-radius: 7;
+    -fx-cursor: hand;
+}
+
+.danger-button {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-padding: 10 18;
+    -fx-background-radius: 7;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #cbd5e1;
+}
+
+.danger-button:hover {
+    -fx-background-color: #b91c1c;
+}
