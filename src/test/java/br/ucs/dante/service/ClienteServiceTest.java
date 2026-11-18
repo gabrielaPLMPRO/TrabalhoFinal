@@ -11,6 +11,18 @@ public class ClienteServiceTest {
     private final ClienteService service = new ClienteService();
 
     @Test
+    void deveRejeitarNomeComApenasEspacosConformeRN01() {
+        assertThrows(IllegalArgumentException.class,
+            () -> service.validar(new Cliente(null, "   ", null, null, null)));
+    }
+
+    @Test
+    void deveAceitarNomeNoLimiteDe50CaracteresConformeRN01() {
+        assertDoesNotThrow(
+            () -> service.validar(new Cliente(null, "A".repeat(50), null, null, null)));
+    }
+
+    @Test
     void deveRejeitarClienteSemNome() {
 
         Cliente cliente = new Cliente(

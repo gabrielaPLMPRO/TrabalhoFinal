@@ -8,6 +8,35 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ClienteRepositoryTest {
 
     @Test
+    void deveImpedirExclusaoDeClienteComPagamentoConformeRN02() throws Exception {
+        String url = System.getenv("DANTE_TEST_DB_URL");
+        String usuario = System.getenv("DANTE_TEST_DB_USER");
+        String senha = System.getenv("DANTE_TEST_DB_PASSWORD");
+        assertEquals("jdbc:postgresql://localhost:5432/dante_squash_test", url,
+            "Este teste modifica dados e exige o banco exclusivo de testes.");
+        assertNotNull(usuario);
+        assertNotNull(senha);
+        DatabaseConnection database = new DatabaseConnection(url, usuario, senha);
+        ClienteRepository clientes = new ClienteRepository(database);
+        PagamentoRepository pagamentos = new PagamentoRepository(database);
+        Cliente cliente = new Cliente(null, "Cliente RN02 pagamento", null, null, null);
+        var pagamento = new br.ucs.dante.model.Pagamento(
+            null, LocalDate.of(2026, 11, 17), null, 10.0, false);
+        try {
+            clientes.salvar(cliente);
+            pagamento.setCodigoCliente(cliente.getCodigo());
+            pagamentos.cadastrar(pagamento);
+            assertThrows(IllegalStateException.class, () -> clientes.excluir(cliente.getCodigo()));
+            assertNotNull(clientes.buscarPorCodigo(cliente.getCodigo()));
+        } finally {
+            if (pagamento.getSequencia() != null) {
+                pagamentos.excluir(cliente.getCodigo(), pagamento.getData(), pagamento.getSequencia());
+            }
+            if (cliente.getCodigo() != null) { clientes.excluir(cliente.getCodigo()); }
+        }
+    }
+
+    @Test
     void deveCadastrarConsultarAtualizarEExcluirCliente()
             throws Exception {
 
