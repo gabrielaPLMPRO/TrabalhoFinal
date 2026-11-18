@@ -114,6 +114,12 @@ Para iniciar no computador preparado: executar `iniciar.cmd` na raiz. Para opera
 - **Validação:** agrupamentos e diffs preparados conferidos; referências #1, #2 e #11 incluídas nos commits correspondentes. Os resultados anteriores dos testes permanecem 43 aprovados e 7 falhas de configuração de banco.
 - **Pendências:** enviar os commits locais ao remoto; preparar o PostgreSQL de testes e seguir as issues de evolução. Issues mantidas abertas para acompanhamento.
 
+### 17/11/2026 — Preservação dos prompts do projeto
+
+- **Alterações:** salvos os prompts originais de refatoração/diagnóstico e de issues/commits em [docs/prompts](prompts/README.md), com formatação Markdown e indicação do trecho incompleto recebido no segundo prompt.
+- **Validação:** conteúdo conferido com as mensagens desta conversa; referências aos arquivos do processo incluídas no índice.
+- **Pendências:** usar esses documentos como referência nas próximas etapas e registrar separadamente novas versões dos prompts, quando houver.
+
 ### Modelo para as próximas atualizações
 
 ```markdown
