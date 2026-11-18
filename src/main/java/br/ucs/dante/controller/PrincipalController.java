@@ -1,198 +1,75 @@
-
 package br.ucs.dante.controller;
 
+import br.ucs.dante.ui.TelaLoader;
 import java.io.IOException;
-
+import java.util.List;
+import java.util.Objects;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.Node;
 
-import java.util.ArrayList;
-import java.util.List;
-import javafx.scene.Node;
+public final class PrincipalController {
+    @FXML private Label tituloPagina;
+    @FXML private Label tituloConteudo;
+    @FXML private Label descricaoConteudo;
+    @FXML private Label statusConexao;
+    @FXML private VBox conteudoCentral;
 
-public class PrincipalController {
-
-    @FXML
-    private Label tituloPagina;
-
-    @FXML
-    private Label tituloConteudo;
-
-    @FXML
-    private Label descricaoConteudo;
-
-    @FXML
-    private VBox conteudoCentral;
-
+    private final TelaLoader telas;
     private List<Node> componentesIniciais;
 
-
-@FXML
-private void initialize() {
-    componentesIniciais = new ArrayList<>(
-        conteudoCentral.getChildren()
-    );
-}
-
-private void restaurarInicio() {
-    conteudoCentral.getChildren().setAll(componentesIniciais);
-}
-
-
-    private void mostrarModulo(String nome) {
-        restaurarInicio();
-
-        tituloPagina.setText(nome);
-        tituloConteudo.setText("Módulo: " + nome);
-        descricaoConteudo.setText(
-            "A interface deste módulo será implementada nas próximas etapas."
-        );
+    public PrincipalController(TelaLoader telas) {
+        this.telas = Objects.requireNonNull(telas);
     }
 
     @FXML
-    private void abrirInicio() {
-        restaurarInicio();
-
-        tituloPagina.setText("Visão Geral");
-        tituloConteudo.setText("Bem-vindo ao Dante Sauna & Squash!");
-        descricaoConteudo.setText(
-            "Selecione um módulo no menu lateral para começar."
-        );
+    private void initialize() {
+        componentesIniciais = List.copyOf(conteudoCentral.getChildren());
+        statusConexao.setText(telas.status());
     }
 
-    @FXML
-    private void abrirClientes() {
+    private void mensagem(String titulo, String descricao) {
+        conteudoCentral.getChildren().setAll(componentesIniciais);
+        tituloPagina.setText(titulo);
+        tituloConteudo.setText(titulo);
+        descricaoConteudo.setText(descricao);
+    }
+
+    private void abrirModulo(String tela, String titulo) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/fxml/clientes.fxml")
-            );
-
-            Parent formulario = loader.load();
-
-            tituloPagina.setText("Clientes");
+            Parent formulario = telas.carregar(tela);
             conteudoCentral.getChildren().setAll(formulario);
-
+            tituloPagina.setText(titulo);
+        } catch (IllegalStateException erro) {
+            mensagem("Conexão indisponível", erro.getMessage());
         } catch (IOException erro) {
-            Alert alerta = new Alert(
-                Alert.AlertType.ERROR,
-                "Não foi possível abrir o cadastro: " +
-                erro.getMessage(),
-                ButtonType.OK
-            );
-
-            alerta.showAndWait();
+            mensagem("Falha ao abrir " + titulo,
+                "Não foi possível carregar a tela. Verifique os recursos da instalação.");
         }
     }
 
-  
-@FXML
-private void abrirProdutos() {
-    try {
-        FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/fxml/produtos.fxml")
-        );
-
-        Parent formulario = loader.load();
-
-        tituloPagina.setText("Produtos");
-        conteudoCentral.getChildren().setAll(formulario);
-
-    } catch (IOException erro) {
-        Alert alerta = new Alert(
-            Alert.AlertType.ERROR,
-            "Não foi possível abrir o cadastro de produtos: "
-                + erro.getMessage(),
-            ButtonType.OK
-        );
-
-        alerta.setHeaderText(null);
-        alerta.showAndWait();
-    }
-}
-
-
-
-@FXML
-private void abrirConsumos() {
-    try {
-        FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/fxml/consumos.fxml")
-        );
-
-        Parent formulario = loader.load();
-
-        tituloPagina.setText("Consumos");
-        conteudoCentral.getChildren().setAll(formulario);
-
-    } catch (IOException erro) {
-        Alert alerta = new Alert(
-            Alert.AlertType.ERROR,
-            "Não foi possível abrir o módulo de Consumos: "
-                + erro.getMessage(),
-            ButtonType.OK
-        );
-
-        alerta.setHeaderText(null);
-        alerta.showAndWait();
-    }
-}
-
-
-
-@FXML
-private void abrirPagamentos() {
-    try {
-        FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/fxml/pagamentos.fxml")
-        );
-
-        Parent formulario = loader.load();
-
-        tituloPagina.setText("Pagamentos");
-        conteudoCentral.getChildren().setAll(formulario);
-
-    } catch (IOException erro) {
-        Alert alerta = new Alert(
-            Alert.AlertType.ERROR,
-            "Não foi possível abrir o módulo de Pagamentos: "
-                + erro.getMessage(),
-            ButtonType.OK
-        );
-
-        alerta.setHeaderText(null);
-        alerta.showAndWait();
-    }
-}
-
-
-    @FXML
-    private void abrirReservas() {
-        mostrarModulo("Reservas de Squash");
+    private void pendente(String modulo) {
+        mensagem(modulo, "Este módulo permanece pendente na reconstrução JavaFX, conforme a seção 7.2 do relatório.");
     }
 
-    @FXML
-    private void abrirSauna() {
-        mostrarModulo("Sauna");
+    @FXML private void abrirInicio() {
+        mensagem("Visão Geral", "Selecione um módulo no menu lateral para começar.");
+        tituloConteudo.setText("Bem-vindo ao Dante Sauna & Squash!");
     }
-
-    @FXML
-    private void abrirMensalidades() {
-        mostrarModulo("Mensalidades");
-    }
-
-    @FXML
-    private void abrirRelatorios() {
-        mostrarModulo("Relatórios");
-    }
-
-    @FXML
-    private void abrirConfiguracoes() {
-        mostrarModulo("Configurações");
+    @FXML private void abrirClientes() { abrirModulo("clientes", "Clientes"); }
+    @FXML private void abrirProdutos() { abrirModulo("produtos", "Produtos"); }
+    @FXML private void abrirConsumos() { abrirModulo("consumos", "Consumos"); }
+    @FXML private void abrirPagamentos() { abrirModulo("pagamentos", "Pagamentos"); }
+    @FXML private void abrirReservas() { pendente("Reservas de Squash"); }
+    @FXML private void abrirSauna() { pendente("Sauna"); }
+    @FXML private void abrirMensalidades() { pendente("Mensalidades"); }
+    @FXML private void abrirRelatorios() { pendente("Relatórios"); }
+    @FXML private void abrirConfiguracoes() {
+        mensagem("Configurações", "Configure DANTE_DB_URL (jdbc:postgresql://servidor:5432/banco), "
+            + "DANTE_DB_USER e DANTE_DB_PASSWORD no ambiente antes de iniciar. "
+            + "O banco e as tabelas devem existir. Após alterar a configuração, reinicie o programa. "
+            + "Situação atual: " + telas.status());
     }
 }

@@ -45,23 +45,15 @@ public class PagamentoController {
     private final DateTimeFormatter formatoData =
         DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
+    private final DatabaseConnection database;
+
+    public PagamentoController(DatabaseConnection database) {
+        this.database = java.util.Objects.requireNonNull(database);
+    }
+
     @FXML
     private void initialize() {
-        String url = System.getenv("DANTE_DB_URL");
-        String usuario = System.getenv("DANTE_DB_USER");
-        String senha = System.getenv("DANTE_DB_PASSWORD");
 
-        if (url == null || usuario == null || senha == null) {
-            alerta(
-                Alert.AlertType.ERROR,
-                "Configuração",
-                "Configure as variáveis de conexão com o banco."
-            );
-            return;
-        }
-
-        DatabaseConnection database =
-            new DatabaseConnection(url, usuario, senha);
 
         clientes = new ClienteRepository(database);
         pagamentos = new PagamentoRepository(database);

@@ -1,67 +1,47 @@
-
 package br.ucs.dante;
 
+import br.ucs.dante.ui.TelaLoader;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
-public class DanteApp extends Application {
+/** Ponto de entrada: prepara dependências e compõe a janela principal. */
+public final class DanteApp extends Application {
+    private Inicializacao.Resultado inicializacao;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
-    public void start(Stage stage) throws Exception {
-
-        FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/fxml/principal.fxml")
-        );
-
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root, 1100, 700);
-
-        scene.getStylesheets().add(
-            getClass().getResource("/css/styles.css").toExternalForm()
-        );
-
-        stage.setTitle("Dante Sauna & Squash 2.0");
-        stage.setScene(scene);
-        stage.setMinWidth(850);
-        stage.setMinHeight(600);
-
-
-String url = System.getenv("DANTE_DB_URL");
-String usuario = System.getenv("DANTE_DB_USER");
-String senha = System.getenv("DANTE_DB_PASSWORD");
-
-if (url == null || usuario == null || senha == null) {
-    System.err.println(
-        "Configure as variáveis de conexão do banco."
-    );
-} else {
-    try {
-        var database =
-            new br.ucs.dante.repository.DatabaseConnection(
-                url, usuario, senha
-            );
-
-        var verificacao =
-            new br.ucs.dante.repository.DatabaseCheck(database);
-
-        String banco = verificacao.verificar();
-
-        System.out.println(
-            "Conexão realizada com o banco: " + banco
-        );
-
-    } catch (Exception erro) {
-        System.err.println(
-            "Falha na conexão: " + erro.getMessage()
-        );
+    public void init() {
+        // O launcher executa init fora da thread gráfica. JDBC tem timeouts.
+        inicializacao = new Inicializacao().executar(System.getenv());
     }
-}
 
+    @Override
+    public void start(Stage stage) {
+        try {
+            // Todas as telas recebem a mesma configuração validada.
+            TelaLoader telas = new TelaLoader(inicializacao);
+            Scene scene = new Scene(telas.carregar("principal"), 1100, 700);
+            scene.getStylesheets().add(telas.recurso("/css/styles.css").toExternalForm());
 
-        stage.show();
+            stage.setTitle("Dante Sauna & Squash 2.0");
+            stage.setMinWidth(850);
+            stage.setMinHeight(600);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception erro) {
+            // Falhas de recursos são apresentadas ao usuário e não ficam só no terminal.
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Falha ao iniciar");
+            alerta.setHeaderText("Não foi possível carregar a interface.");
+            alerta.setContentText("Verifique os arquivos FXML e CSS da instalação. Detalhe: "
+                + erro.getClass().getSimpleName());
+            alerta.showAndWait();
+            javafx.application.Platform.exit();
+        }
     }
 }

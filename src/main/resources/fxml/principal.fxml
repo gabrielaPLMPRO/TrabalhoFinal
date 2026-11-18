@@ -56,4 +56,7 @@
         </VBox>
     </center>
 
+    <bottom>
+        <Label fx:id="statusConexao" wrapText="true" style="-fx-padding: 10;" />
+    </bottom>
 </BorderPane>

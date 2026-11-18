@@ -4,6 +4,7 @@ package br.ucs.dante.repository;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.SQLException;
 
 public class DatabaseCheck {
 
@@ -13,7 +14,7 @@ public class DatabaseCheck {
         this.database = database;
     }
 
-    public String verificar() throws Exception {
+    public String verificar() throws SQLException {
 
         String sql = "SELECT current_database()";
 

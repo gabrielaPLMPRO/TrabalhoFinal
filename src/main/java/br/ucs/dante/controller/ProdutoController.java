@@ -34,23 +34,15 @@ public class ProdutoController {
     private ProdutoService service;
     private Integer codigoEmEdicao;
 
+    private final DatabaseConnection database;
+
+    public ProdutoController(DatabaseConnection database) {
+        this.database = java.util.Objects.requireNonNull(database);
+    }
+
     @FXML
     private void initialize() {
-        String url = System.getenv("DANTE_DB_URL");
-        String usuario = System.getenv("DANTE_DB_USER");
-        String senha = System.getenv("DANTE_DB_PASSWORD");
 
-        if (url == null || usuario == null || senha == null) {
-            alerta(
-                Alert.AlertType.ERROR,
-                "Configuração",
-                "Configure as variáveis de conexão com o banco."
-            );
-            return;
-        }
-
-        DatabaseConnection database =
-            new DatabaseConnection(url, usuario, senha);
 
         repository = new ProdutoRepository(database);
         service = new ProdutoService();
