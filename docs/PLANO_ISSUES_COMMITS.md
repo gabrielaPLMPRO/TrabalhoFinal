@@ -4,6 +4,8 @@ Data: 17/11/2026. As 11 issues foram publicadas no GitHub com a mesma numeraçã
 
 Referência: [diagnóstico](DIAGNOSTICO_REFATORACAO.md). O PDF descreve uma reconstrução parcial. Regras dos módulos pendentes precisam ser levantadas no legado e confirmadas antes da implementação.
 
+**Complemento de 18/11/2026:** o [documento de histórias](contexto%20IA/6eac3a3f-4194-48c2-a3ab-9c3033dc1b16.pdf), agora incorporado à análise, contém regras adicionais. A [auditoria](auditorias/2026-11-18_AUDITORIA_DOCUMENTACAO.md) identifica desvios em consumos, pagamentos e inicialização. BDD foi definido como necessário pelo usuário; a issue #10 abaixo foi atualizada localmente. Não houve alteração das issues remotas nesta etapa.
+
 ## Issue #1: Centralizar a inicialização e integrar as telas JavaFX
 
 - **Descrição:** compor a aplicação a partir de configuração validada, injetar dependências nos quatro módulos e informar indisponibilidade do banco na interface.
@@ -70,6 +72,7 @@ Referência: [diagnóstico](DIAGNOSTICO_REFATORACAO.md). O PDF descreve uma reco
 ## Issue #7: Definir e implementar quitação de consumos por pagamentos
 
 - **Descrição:** especificar a integração ainda não confirmada no PDF e implementar as atualizações financeiras de forma transacional.
+- **Complemento de 18/11/2026:** a história §1.2.5 do documento de 24 páginas já descreve quitação, pagamento parcial e desconto. Usar essa base, esclarecer ambiguidades e definir edição/exclusão/estorno, sem tratar todas as regras como inexistentes. Especificar exemplos de negócio antes da implementação, em conjunto com a issue #10.
 - **Critérios de aceite:** decisão registrada sobre pagamento parcial/total, período, rateio, edição, exclusão e estorno; gravação de pagamento e quitação consistentes; rollback em falhas; testes de valores, vínculos e concorrência pertinentes aprovados. Não adotar rateio ou estorno presumidos.
 - **Arquivos relacionados (existentes):** `src/main/java/br/ucs/dante/service/PagamentoService.java`, `repository/PagamentoRepository.java`, `repository/ConsumoRepository.java`, `controller/PagamentoController.java` e testes de pagamentos/consumos.
 - **Arquivo proposto:** `docs/REGRAS_QUITACAO.md` e testes transacionais adicionais.
@@ -91,13 +94,17 @@ Referência: [diagnóstico](DIAGNOSTICO_REFATORACAO.md). O PDF descreve uma reco
 - **Arquivos propostos:** serviços/controladores administrativos JavaFX, telas e testes próprios.
 - **Dependência:** Issue #3 e definição dos efeitos administrativos.
 
-## Issue #10: Confirmar exigência e implementar BDD formal
+## Issue #10: Adotar BDD e integrar especificações executáveis
 
-- **Descrição:** confirmar com a disciplina se BDD formal é obrigatório; em caso positivo, integrar Gherkin à execução automatizada.
-- **Critérios de aceite:** exigência registrada; se obrigatória, cenários RN-01/RN-02 executáveis e integrados ao Maven; implementação ligada a código real; evidências geradas. Se dispensada, registrar a decisão sem declarar BDD implementado.
-- **Arquivos relacionados (existentes):** `pom.xml` e testes atuais de clientes.
-- **Arquivos propostos:** `src/test/resources/features/clientes.feature`, definições de passos e configuração de execução.
-- **Dependência:** decisão da disciplina; Issue #3 para cenários de persistência.
+- **Decisão de 18/11/2026:** o usuário definiu BDD como fundamental, superando a condição anterior de confirmar sua exigência. A alteração é documental e local; a issue remota não foi editada.
+- **Situação:** lacuna diagnosticada; implementação pendente. Novo PDF recebido e lido: [o que nao pode faltar.pdf](contexto%20IA/o%20que%20nao%20pode%20faltar.pdf), p. 2, §3, confirma BDD obrigatório em Gherkin, ligado aos requisitos e executado com resultados. Não é mais uma condição a confirmar com a disciplina.
+- **Avanço de especificação em 18/11/2026:** criados [11 histórias e arquivos Gherkin](bdd/HISTORIAS_USUARIO_E_CENARIOS.md), incluindo marcação de desvios e decisões abertas. Não houve implementação de passos/runner nem execução BDD; a issue permanece incompleta.
+- **Descrição:** discutir regras e exemplos com a equipe, formular cenários em Gherkin e ligá-los à execução automatizada de código real, conforme o [plano de BDD e contexto](bdd/2026-11-18_LACUNA_BDD_E_CONTEXTO.md).
+- **Critérios de aceite:** regras e conflitos revisados; RN-01/RN-02 e restrições de consumos especificados e executáveis; cenários financeiros definidos conforme a issue #7; descoberta e execução Maven comprovadas; integração PostgreSQL validada; evidências com resultados e limitações; suíte técnica JUnit preservada. Gherkin somente documental não conclui a tarefa.
+- **Arquivos relacionados (existentes):** `pom.xml`, testes de clientes/consumos/pagamentos, documento de histórias, auditoria e diagnóstico de BDD.
+- **Arquivos de especificação criados:** `src/test/resources/features/*.feature`, abrangendo as 11 histórias do catálogo.
+- **Arquivos ainda propostos:** definições de passos e configuração de execução BDD.
+- **Dependências:** Issue #3 para persistência; decisões da issue #7 para pagamentos. O usuário identificou `TRABALHO FINAL.pdf` como a Entrega 1; ela declara ausência de BDD formal. Relacionar os novos cenários a essa base e justificar a complementação da estratégia no relatório técnico, sem atribuir cenários inexistentes ao PDF. Mapear também as obrigações de testes, métodos estáticos e materiais finais no [complemento da auditoria](auditorias/2026-11-18_COMPLEMENTO_ENTREGA_2.md).
 
 ## Issue #11: Versionar diagnóstico, evidências e histórico resumido
 
@@ -195,6 +202,23 @@ Validação preservada: 43 testes independentes de PostgreSQL aprovados e 7 falh
 | #7 | Regras aprovadas + serviço transacional + repositórios afetados + testes | `feat(pagamentos): integre pagamentos a quitacao de consumos` |
 | #8 | Consultas + cálculos + telas + testes de relatórios | `feat(relatorios): implemente consultas e resumos gerenciais` |
 | #9 | Serviços administrativos + interface + testes de restauração | `feat(administracao): implemente backup e restauracao do banco` |
-| #10 | Features + passos + execução Maven, somente se exigido | `test(bdd): integre cenarios executaveis de clientes` |
+| #10 | Features + passos + execução Maven, conforme decisão de 18/11 | `test(bdd): integre cenarios executaveis de negocio` |
 
 Esses são agrupamentos propostos, não comandos de staging para arquivos ainda inexistentes. Se uma issue crescer, dividir por fluxo funcional completo que compile, persista e possa ser verificado; não dividir por arquivo ou deixar uma tela com construtor incompatível entre commits.
+
+# 3. Rodada de versionamento de 18/11/2026
+
+O usuário autorizou iniciar os commits das alterações documentais e de especificação acumuladas. O índice estava vazio na conferência. Esta rodada preserva o histórico anterior e usa as issues existentes, sem criar, encerrar ou alterar issues remotas e sem executar push.
+
+| Ordem | Commit | Escopo coeso | Referências |
+|---|---|---|---|
+| 1 | `docs(contexto): versione as fontes da entrega e do sistema original` | Realocação da Entrega 1 para a pasta de contexto e inclusão dos PDFs de histórias e do enunciado | `Refs: #11` |
+| 2 | `docs(bdd): especifique cenarios e justifique as correcoes da entrega` | Índices e inventário, auditorias, correções/justificativas, prompts 03–05, diagnóstico BDD, catálogo, 11 features e atualização do histórico/plano | `Refs: #10, #11` |
+
+**Justificativa de agrupamento:** as fontes formam uma unidade documental preservada; o segundo commit reúne a especificação e os registros que a contextualizam. As features entram como especificação, por isso o tipo é `docs`, sem afirmar implementação ou aprovação de testes BDD.
+
+**Verificações preparatórias:** o PDF realocado tem o mesmo hash do original (`159f5902cdbdb746b249b0076611d1af33e7d405`); 112 links Markdown locais conferidos sem referências quebradas; 11 features com 88 cenários/esquemas e 220 casos após expansão, conferidos estruturalmente. Não foi usado parser oficial de Gherkin nem executado Cucumber/JUnit nesta rodada. O diff preparado de cada grupo deve passar por `git diff --cached --check` antes do commit.
+
+**Situação das issues:** #10 permanece incompleta, pois passos, runner e execução BDD estão pendentes; os registros de #11 recebem esta complementação. Não usar `Closes` para encerrar trabalho ainda não comprovado. Os hashes e a confirmação de criação dos commits devem ser consultados no Git após a execução desta rodada, sem repetir os comandos sobre conteúdo já commitado.
+
+**Primeiro resultado confirmado:** commit `716a38e` criado para as fontes, com realocação da Entrega 1 reconhecida pelo Git como idêntica (100%). A conferência do segundo grupo apontou linhas em branco extras no fim de três features, normalizadas antes de sua conclusão. Este registro integra o segundo agrupamento; consultar `git log` para seu hash e confirmação final.

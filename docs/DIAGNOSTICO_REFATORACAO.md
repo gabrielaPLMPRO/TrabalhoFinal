@@ -120,6 +120,48 @@ Para iniciar no computador preparado: executar `iniciar.cmd` na raiz. Para opera
 - **Validação:** conteúdo conferido com as mensagens desta conversa; referências aos arquivos do processo incluídas no índice.
 - **Pendências:** usar esses documentos como referência nas próximas etapas e registrar separadamente novas versões dos prompts, quando houver.
 
+### 18/11/2026 — Consolidação da auditoria e identificação da lacuna BDD
+
+- **Alterações:** salvos o [relatório de auditoria](auditorias/2026-11-18_AUDITORIA_DOCUMENTACAO.md) e os [prompts 03 e 04](prompts/README.md); criado [índice de docs](README.md), [inventário de fontes](contexto%20IA/README.md) e [diagnóstico de BDD e plano de contexto](bdd/2026-11-18_LACUNA_BDD_E_CONTEXTO.md). A issue #10 do plano local passou de condicional a necessária por orientação explícita do usuário.
+- **Complemento às conclusões anteriores:** o documento de histórias de 24 páginas contém regras básicas de quitação e restrições de consumos que não constavam do relatório acadêmico usado na análise inicial. A implementação atual permite edição e exclusão de consumo pago; o teste de consumo também espera essas operações. As conclusões de 17/11 permanecem como histórico, mas não esgotam a base documental agora disponível.
+- **Validação:** artefatos e links locais conferidos. Não houve nova execução de testes; os resultados históricos permanecem 43 aprovados e 7 falhas de configuração do PostgreSQL em 50 testes.
+- **Pendências:** receber e analisar o PDF de BDD anunciado, especificar e executar cenários ligados ao código real, preparar PostgreSQL e corrigir as divergências. O PDF ainda não foi localizado na pasta de contexto; inclusão registrada como planejada, sem conteúdo presumido. Nenhuma issue remota, commit ou push foi executado nesta etapa.
+
+### 18/11/2026 — Recebimento e análise do enunciado da Entrega 2
+
+- **Alterações:** nova verificação localizou `docs/contexto IA/o que nao pode faltar.pdf`, com 4 páginas, lidas integralmente. Atualizados inventário, índice e plano BDD; criado [complemento da auditoria](auditorias/2026-11-18_COMPLEMENTO_ENTREGA_2.md). Esta conferência supera a pendência de recebimento registrada acima.
+- **Achados:** BDD executável em Gherkin é obrigatório (p. 2, §3); também são exigidos testes de fluxo principal, banco, arquitetura e interface, continuidade da Entrega 1, ZIP/README, relatório, vídeo e declaração de uso de IA. A proibição de métodos estáticos precisa ser confrontada com `DanteApp.main` e métodos próprios dos testes.
+- **Validação:** leitura integral e referências locais conferidas; nenhuma alteração de código ou nova execução de testes.
+- **Pendências:** implementar e comprovar os critérios; localizar artefatos da Entrega 1 e registrar o tratamento da restrição de métodos estáticos. Nenhuma issue remota, commit ou push executado nesta etapa.
+
+### 18/11/2026 — Histórias de usuário e especificação Gherkin
+
+- **Alterações:** criados [catálogo de 11 histórias](bdd/HISTORIAS_USUARIO_E_CENARIOS.md), arquivos `.feature` em `src/test/resources/features` e [prompt 05](prompts/05_HISTORIAS_USUARIO_CENARIOS_BDD.md). Critérios incluem fluxos principais, alternativas, validações, erros, fontes e decisões abertas.
+- **Coerência:** bloqueio de edição manual e exclusão de consumos pagos segue o documento de histórias, sem reproduzir o desvio do teste atual. Pagamentos com desconto/estorno e políticas incompletas permanecem pendentes; caracterização do código atual não é aprovação dessas regras.
+- **Validação:** conferência estrutural de Gherkin, tabelas, parâmetros e links locais. Nenhuma execução Cucumber, nenhuma nova execução JUnit e nenhum parser oficial de Gherkin utilizados.
+- **Pendências:** revisão de negócio, decisões abertas, artefatos completos da Entrega 1, passos/runner, PostgreSQL e refatorações necessárias. A existência de features não conclui a exigência de BDD executado. Nenhuma issue remota, commit ou push executado.
+
+### 18/11/2026 — Identificação da Entrega 1 esclarecida pelo usuário
+
+- **Esclarecimento:** o usuário confirmou que a Entrega 1 é `docs/contexto IA/TRABALHO FINAL.pdf`, já lido. O nome `entregafinal.pdf` foi uma confusão de referência; não há necessidade de procurar outro documento com esse nome.
+- **Alterações:** atualizado o papel das fontes no inventário, índice, catálogo BDD, plano e complemento da auditoria. O enunciado `o que nao pode faltar.pdf` rege a entrega atual; o documento de histórias do legado apoia o detalhamento.
+- **Implicação:** as 11 histórias e os 220 casos são complementação proposta posterior, não cenários existentes na Entrega 1, que declara ausência de BDD formal. Justificar a evolução da estratégia e conferir o escopo antes de tratar todo o catálogo como obrigatório.
+- **Validação:** atualização documental; nenhuma alteração de código ou execução de testes.
+
+### 18/11/2026 — Registro das correções e justificativas perante a Entrega 1
+
+- **Alterações:** criado [registro de correções e justificativas](CORRECOES_JUSTIFICATIVAS_ENTREGA_1.md), com 13 itens locais, referências às páginas/seções da Entrega 1 e ao enunciado, distinção entre correção técnica, complementação e mudança funcional, situação e critérios de aceite.
+- **Coerência:** a Entrega 1 não foi reescrita; resultados históricos foram preservados. BDD é complementação posterior; consumos/pagamentos exigem conciliação das regras; o catálogo amplo não é tratado automaticamente como escopo aprovado.
+- **Validação:** links locais e formatação conferidos; nenhuma alteração de código, dependências ou testes e nenhuma nova execução funcional.
+- **Pendências:** executar as correções propostas e registrar suas evidências conforme o modelo do novo documento. Nenhum commit, push ou atualização de issue remota nesta etapa.
+
+### 18/11/2026 — Agrupamento dos commits de fontes e especificação
+
+- **Autorização:** o usuário solicitou iniciar os commits conforme o padrão de commits e issues.
+- **Agrupamento:** primeiro, PDFs de contexto e realocação da Entrega 1 (`docs(contexto)`, #11); segundo, auditorias, prompts, histórias/features, justificativas e índices (`docs(bdd)`, #10 e #11). Detalhamento na [rodada de versionamento](PLANO_ISSUES_COMMITS.md#3-rodada-de-versionamento-de-18112026).
+- **Verificação preparatória:** índice inicialmente vazio, hash do PDF realocado idêntico ao original, 112 links locais válidos e estrutura de 11 features/88 cenários ou esquemas/220 casos conferida. Sem nova execução de testes funcionais.
+- **Limites:** commits locais; nenhum push ou atualização remota de issues incluído. #10 não deve ser encerrada com a mera especificação. Conferir no histórico Git os hashes e a criação efetiva dos commits.
+
 ### Modelo para as próximas atualizações
 
 ```markdown
