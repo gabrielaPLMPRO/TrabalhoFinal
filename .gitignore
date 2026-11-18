@@ -1,10 +1,13 @@
 
 # Maven
 target/
+.tools/
 
 # Java
 *.class
 *.log
+!docs/validacao/antes/*.log
+!docs/validacao/depois/*.log
 
 # VS Code
 .vscode/
